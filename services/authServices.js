@@ -1,29 +1,37 @@
-// services/AuthService.js
-const bcrypt = require('bcrypt');
-const User = require('./models/User');
+const User = require('./models/user'); // Import the User model
+const bcryptjs = require('bcryptjs');
 
-class AuthService {
-  static async register(email, password) {
-    const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ email, password: hashedPassword });
-    return newUser.save();
+async function registerUser(email, password) {
+ 
+  
+  const existingUser = await User.findOne({ email });
+  if (existingUser) {
+    throw new Error('Email already exists');
   }
 
-  static async login(email, password) {
-    const user = await User.findOne({ email });
+  const hashedPassword = await bcryptjs.hash(password, 10);
+  const user = new User({ email, password: hashedPassword });
 
-    if (!user) {
-      throw new Error('User not found');
-    }
-
-    const passwordMatch = await bcrypt.compare(password, user.password);
-
-    if (!passwordMatch) {
-      throw new Error('Invalid password');
-    }
-
-    return user;
-  }
+  await user.save();
+  return user;
 }
 
-module.exports = AuthService;
+async function loginUser(email, password) {
+  const user = await User.findOne({ email });
+  if (!user) {
+    throw new Error('Invalid email or password');
+  }
+
+  const isMatch = await bcryptjs.compare(password, user.password);
+  if (!isMatch) {
+    throw new Error('Invalid email or password');
+  }
+
+  // Generate JWT with user data if needed
+  return user;
+}
+
+module.exports = {
+  registerUser,
+  loginUser,
+};
