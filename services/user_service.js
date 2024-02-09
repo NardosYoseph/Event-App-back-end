@@ -1,7 +1,7 @@
-const User = require('./models/user'); // Import the User model
+const User = require('../models/user'); // Import the User model
 const bcryptjs = require('bcryptjs');
 
-async function registerUser(email, password) {
+async function registerUser(username,email, password) {
  
   
   const existingUser = await User.findOne({ email });
@@ -10,7 +10,7 @@ async function registerUser(email, password) {
   }
 
   const hashedPassword = await bcryptjs.hash(password, 10);
-  const user = new User({ email, password: hashedPassword });
+  const user = new User({username, email, password: hashedPassword });
 
   await user.save();
   return user;
