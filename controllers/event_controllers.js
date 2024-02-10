@@ -13,7 +13,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         const eventData = req.body;        
         const newEvent = await eventService.createEvent(eventData);
 
-        res.status(201).json({ message: 'Event created successfully', newEvent });
+        res.status(200).json({ message: 'Event created successfully', newEvent });
         
     } catch (err) {
         console.error('Error creating event:', err);
