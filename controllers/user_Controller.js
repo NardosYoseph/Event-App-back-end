@@ -22,6 +22,13 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
 }
 )}; 
 async function login(req, res) {
+    
+    const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
+
+// Connect to MongoDB
+mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(async () => {
+    console.log('Connected to MongoDB');
     try {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
@@ -30,9 +37,9 @@ async function login(req, res) {
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });
     }
-}
+  })}
 
 module.exports = {
     register,
-    login
+    login,
 };
