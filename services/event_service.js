@@ -8,7 +8,7 @@ async function createEvent(eventData) {
 async function fetchEvent() {
 
   const events = await Event.find();
-  return json(events);
+  return events;
 }
 
 module.exports = {
