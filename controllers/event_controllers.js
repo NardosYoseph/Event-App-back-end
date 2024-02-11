@@ -21,5 +21,26 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
       }
     }
     )}
+    async function fetchEvent(req, res) {
+    
+      const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
+  
+  // Connect to MongoDB
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
+    .then(async () => {
+      console.log('Connected to MongoDB');
+      try {     
+          const eventList = await eventService.fetchEvent();
+  
+          res.status(200).json({ message: 'Event fetched successfully', eventList });
+          
+      } catch (err) {
+          console.error('Error fetching event:', err);
+          res.status(500).json({ error: 'Internal server error' });
+        }
+      }
+      )}
 module.exports = {
-    createEvent,}
+    createEvent,
+    fetchEvent
+  }
