@@ -1,5 +1,7 @@
 const userService = require('../services/user_service');
 const mongoose = require('mongoose');
+const generateToken= require('../config/generate_token');
+
 async function register(req, res) {
     const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
 
@@ -32,7 +34,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     try {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
-        // In a real-world scenario, you would generate a JWT token here
+        const token = generateToken(user);
+
         res.json({ message: 'Login successful!', user: loggedInUser });
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });

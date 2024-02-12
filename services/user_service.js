@@ -1,6 +1,5 @@
 const User = require('../models/user'); // Import the User model
 const bcryptjs = require('bcryptjs');
-const generateToken= require('./generate_token');
 
 async function registerUser(username,email, password) {
  
@@ -22,14 +21,11 @@ async function loginUser(email, password) {
   if (!user) {
     throw new Error('Invalid email or password');
   }
-
   const isMatch = await bcryptjs.compare(password, user.password);
   if (!isMatch) {
     throw new Error('Invalid email or password');
   }
-  const token = generateToken(user);
-  
-  return res.json({ token });
+  return res.json(user);
 }
 module.exports = {
   registerUser,
