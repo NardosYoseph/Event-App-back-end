@@ -1,5 +1,6 @@
 const User = require('../models/user'); // Import the User model
 const bcryptjs = require('bcryptjs');
+const generateToken= require('./generate_token');
 
 async function registerUser(username,email, password) {
  
@@ -26,11 +27,10 @@ async function loginUser(email, password) {
   if (!isMatch) {
     throw new Error('Invalid email or password');
   }
-
-  // Generate JWT with user data if needed
-  return user;
+  const token = generateToken(user);
+  
+  return res.json({ token });
 }
-
 module.exports = {
   registerUser,
   loginUser,

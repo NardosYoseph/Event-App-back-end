@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
-const crypto = require('crypto');
-
-const secretKey = crypto.randomBytes(32).toString('hex'); 
-function generateToken(userId) {
-  const payload = { userId };
+const secretKey = require('../config/secretKey');
+function generateToken(user) {
+  const payload = { user };
   return jwt.sign(payload, secretKey,{ expiresIn: '5h' });
 }
 
