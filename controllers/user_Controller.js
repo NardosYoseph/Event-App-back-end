@@ -1,6 +1,6 @@
 const userService = require('../services/user_service');
 const mongoose = require('mongoose');
-const generateToken= require('../config/generate_token');
+const generateToken= require('../services/generate_token');
 
 async function register(req, res) {
     const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
