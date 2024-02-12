@@ -25,7 +25,7 @@ async function loginUser(email, password) {
   if (!isMatch) {
     throw new Error('Invalid email or password');
   }
-  return res.json(user);
+  return user;
 }
 module.exports = {
   registerUser,
