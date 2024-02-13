@@ -1,6 +1,6 @@
 const userService = require('../services/user_service');
 const mongoose = require('mongoose');
-const generateToken= require('../services/generate_token');
+const token= require('../services/generate_token');
 
 async function register(req, res) {
     const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
@@ -33,9 +33,9 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     try {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
-         const token = generateToken(loggedInUser);
+         const generatedToken = token.generateToken(loggedInUser);
 
-        res.json({ message: 'Login successful!', user: loggedInUser });
+        res.json({ message: 'Login successful!', token: generatedToken });
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });
     }
