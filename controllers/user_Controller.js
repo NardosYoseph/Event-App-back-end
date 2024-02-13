@@ -33,7 +33,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     try {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
-         const token = generateToken(user);
+         const token = generateToken(loggedInUser);
 
         res.json({ message: 'Login successful!', user: loggedInUser });
     } catch (err) {
