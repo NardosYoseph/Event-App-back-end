@@ -1,7 +1,9 @@
-const crypto = require('crypto');
+const forge = require('node-forge');
 
-const secretKey = "nardi123";
-//crypto.randomBytes(32).toString('hex'); 
+const privateKey = forge.pki.rsa.generateKeyPair({ bits: 2048 });
+const secretKey = forge.pki.privateKeyToPem(privateKey.privateKey);
+
+// Export the PEM-encoded key
 module.exports = {
-  secretKey
+  secretKey,
 };
