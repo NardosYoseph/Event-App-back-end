@@ -30,11 +30,11 @@ async function login(req, res) {
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
     console.log('Connected to MongoDB');
+        
     try {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
-         const generatedToken = token.generateToken(loggedInUser);
-
+        const generatedToken = token.generateToken(loggedInUser);
         res.json({ message: 'Login successful!', token: generatedToken });
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });
