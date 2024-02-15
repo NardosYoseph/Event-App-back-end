@@ -11,7 +11,6 @@ async function registerUser(username,email, password) {
 
   const hashedPassword = await bcryptjs.hash(password, 10);
   const user = new User({username, email, password: hashedPassword });
-
   await user.save();
   return user;
 }
