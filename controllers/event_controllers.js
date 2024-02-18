@@ -18,7 +18,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
             return res.status(400).json({ error: err.message });
           } else if (err) {
             // Handle other errors
-            return res.status(500).json({ error: 'Internal server error' });
+            return res.status(500).json({ error: err });
           }
     const filename = req.file.filename;
         
@@ -31,8 +31,8 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         res.status(200).json({ message: 'Event created successfully', newEvent });
       });
     } catch (err) {
-        console.error('Error creating event:', err);
-        res.status(500).json({ error: "last error",  });
+      console.error('Error creating event:', err);
+      res.status(500).json({ error: err.message });
       }
   });
 }
