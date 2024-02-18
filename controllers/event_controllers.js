@@ -17,11 +17,11 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
           return res.status(500).json({ error: 'Internal server error' });
       }
     try {
-      const imagePath = req.file.path;
+     // const imagePath = req.file.path;
         
       const eventData = {
-          ...req.body, 
-          image: imagePath 
+          ...req.fields, 
+          image: req.file 
       };   
         const newEvent = await eventService.createEvent(eventData);
 
