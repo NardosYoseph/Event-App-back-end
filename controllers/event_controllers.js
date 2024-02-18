@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const upload = require("../services/multer");
 const eventService = require('../services/event_service');
+const multer = require('multer');
+
 async function createEvent(req,res) {
 
     const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; 
