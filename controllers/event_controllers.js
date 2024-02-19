@@ -43,16 +43,16 @@ async function fetchEvent(req, res) {
       const imagePath = path.join('public', event._doc.image);
       if (fs.existsSync(imagePath)) {
         const imageData = await fs.promises.readFile(imagePath); // Read image file
-        const image = new File([imageData], event._doc.image); // Create a File object
-        return {
-          _id: event._doc._id,
-          description: event._doc.description,
-          date: event._doc.date,
-          time: event._doc.time,
-          rate: event._doc.rate,
-          people: event._doc.people,
-          image: image, // Make sure 'image' is assigned as a File object
-        }; } else {
+      const base64Image = Buffer.from(imageData).toString('base64'); // Convert image data to base64
+      return {
+        _id: event._doc._id,
+        description: event._doc.description,
+        date: event._doc.date,
+        time: event._doc.time,
+        rate: event._doc.rate,
+        people: event._doc.people,
+        image: base64Image,
+      }; } else {
         // Handle case where the file does not exist
         console.error(`File not found: ${imagePath}`);
         return event; // Return the event without modifying the image
