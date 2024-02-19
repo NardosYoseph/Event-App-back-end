@@ -36,16 +36,20 @@ async function fetchEvent(req, res) {
 
   try {
     dbConnection;
+
     const eventList = await eventService.fetchEvent();
-    const formattedEventList = eventList.map(event => ({
-      _id: event._doc._id,
-      description: event._doc.description,
-      date: event._doc.date,
-      time: event._doc.time,
-      rate: event._doc.rate,
-      people: event._doc.people,
-      image:  `https://event-app-back-end.onrender.com/public/${event._doc.image}` // Replace example.com with your domain
-      ,
+    const formattedEventList = await Promise.all(eventList.map(async event => {
+      const imageData = await fs.readFile(path.join('public', event.image)); // Read image file
+      const base64Image = Buffer.from(imageData).toString('base64'); // Convert image data to base64
+      return {
+        _id: event._doc._id,
+        description: event._doc.description,
+        date: event._doc.date,
+        time: event._doc.time,
+        rate: event._doc.rate,
+        people: event._doc.people,
+        image: base64Image,
+      };
     }));
     res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
   
