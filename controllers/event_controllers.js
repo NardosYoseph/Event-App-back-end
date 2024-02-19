@@ -12,17 +12,15 @@ async function createEvent(req, res) {
     upload(req, res, async (err) => { 
      
       if (err instanceof multer.MulterError) {
-        // Handle Multer-specific errors
         return res.status(400).json({ error: err.message });
       } else if (err) {
-        // Handle other errors
         return res.status(500).json({ error: err });
       }
       const filename = req.file.filename;
       console.log(req.body);
       const eventData = {
         ...req.body,
-        image: 'public/' + filename
+        image: filename
       };
       const newEvent = await eventService.createEvent(eventData);
 
