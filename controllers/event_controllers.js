@@ -37,16 +37,15 @@ async function fetchEvent(req, res) {
   try {
     dbConnection;
     const eventList = await eventService.fetchEvent();
-    const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imageData = await fs.promises.readFile(`public/${event.image}`);
-      const base64Image = imageData.toString('base64');
-      return {
-        ...event,
-        image: base64Image
-      };
-    }));
-
-    res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
+    const formattedEventList = eventList.map(event => ({
+      _id: event._doc._id,
+      description: event._doc.description,
+      date: event._doc.date,
+      time: event._doc.time,
+      rate: event._doc.rate,
+      people: event._doc.people,
+      image: event._doc.image,
+    }));status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
   
   } catch (err) {
     console.error('Error fetching event:', err);
