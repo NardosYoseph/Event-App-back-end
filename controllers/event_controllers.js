@@ -4,6 +4,7 @@ const eventService = require('../services/event_service');
 const multer = require('multer');
 const dbConnection = require('../config/database')
 const fs = require('fs');
+const path = require('path');
 
 async function createEvent(req, res) {
    
@@ -39,7 +40,7 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imageData = await fs.readFile(path.join('public', event.image)); // Read image file
+    const imageData = await fs.promises.readFile(event.image); // Read image file
       const base64Image = Buffer.from(imageData).toString('base64'); // Convert image data to base64
       return {
         _id: event._doc._id,
