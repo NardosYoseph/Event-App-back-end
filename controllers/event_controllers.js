@@ -51,7 +51,7 @@ async function fetchEvent(req, res) {
           time: event._doc.time,
           rate: event._doc.rate,
           people: event._doc.people,
-          image: image,
+          image: image, // Make sure 'image' is assigned as a File object
         }; } else {
         // Handle case where the file does not exist
         console.error(`File not found: ${imagePath}`);
