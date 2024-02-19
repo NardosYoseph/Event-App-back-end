@@ -45,7 +45,8 @@ async function fetchEvent(req, res) {
       rate: event._doc.rate,
       people: event._doc.people,
       image: event._doc.image,
-    }));status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
+    }));
+    res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
   
   } catch (err) {
     console.error('Error fetching event:', err);
