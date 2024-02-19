@@ -38,7 +38,7 @@ async function fetchEvent(req, res) {
     dbConnection;
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imageData = await fs.promises.readFile(`${event.image}`);
+      const imageData = await fs.promises.readFile(`public/${event.image}`);
       const base64Image = imageData.toString('base64');
       return {
         ...event,
