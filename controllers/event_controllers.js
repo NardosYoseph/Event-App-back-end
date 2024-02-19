@@ -18,9 +18,9 @@ async function createEvent(req, res) {
         return res.status(500).json({ error: err });
       }
       const filename = req.file.filename;
-      console.log(req.fields);
+      console.log(req.body);
       const eventData = {
-        ...req.fields,
+        ...req.body,
         image: 'public/' + filename
       };
       const newEvent = await eventService.createEvent(eventData);
