@@ -3,6 +3,7 @@ const upload = require("../services/multer");
 const eventService = require('../services/event_service');
 const multer = require('multer');
 const dbConnection = require('../config/database')
+const fs = require('fs');
 
 async function createEvent(req, res) {
    
@@ -38,14 +39,21 @@ async function fetchEvent(req, res) {
   try {
     dbConnection;
     const eventList = await eventService.fetchEvent();
+    const formattedEventList = await Promise.all(eventList.map(async event => {
+      const imageData = await fs.promises.readFile(`public/${event.image}`);
+      const base64Image = imageData.toString('base64');
+      return {
+        ...event,
+        image: base64Image
+      };
+    }));
 
-    res.status(200).json({ message: 'Event fetched successfully', eventList });
-
+    res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
+  
   } catch (err) {
     console.error('Error fetching event:', err);
     res.status(500).json({ error: 'Internal server error' });
   }
-
 }
 module.exports = {
   createEvent,
