@@ -4,7 +4,7 @@ const eventService = require('../services/event_service');
 const multer = require('multer');
 
 async function createEvent(req,res) {
-
+console.log(req);
     const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; 
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(async () => {
