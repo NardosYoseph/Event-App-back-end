@@ -40,7 +40,9 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-    const imageData = await fs.promises.readFile(event.image); // Read image file
+      const imagePath = path.join('public', event._doc.image);
+      if (fs.existsSync(imagePath)) {
+        const imageData = await fs.promises.readFile(imagePath); // Read image file
       const base64Image = Buffer.from(imageData).toString('base64'); // Convert image data to base64
       return {
         _id: event._doc._id,
@@ -50,10 +52,14 @@ async function fetchEvent(req, res) {
         rate: event._doc.rate,
         people: event._doc.people,
         image: base64Image,
-      };
+      }; } else {
+        // Handle case where the file does not exist
+        console.error(`File not found: ${imagePath}`);
+        return event; // Return the event without modifying the image
+      }
     }));
     res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
-  
+ 
   } catch (err) {
     console.error('Error fetching event:', err);
     res.status(500).json({ error: 'Internal server error' });
