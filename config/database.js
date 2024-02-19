@@ -7,5 +7,5 @@ const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Chang
 mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('Connected to MongoDB'))
   .catch(error => console.error('Error connecting to MongoDB:', error));
-  client.close();
+ // client.close();
 module.exports = mongoose.connection;

@@ -1,16 +1,12 @@
 const userService = require('../services/user_service');
 const mongoose = require('mongoose');
 const token= require('../services/generate_token');
+const dbConnection = require('../config/database')
 
 async function register(req, res) {
-    const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
-
-// Connect to MongoDB
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(async () => {
-    console.log('Connected to MongoDB');
-
+ 
     try {
+        dbConnection
         const { username, email, password } = req.body;
         const newUser = await userService.registerUser(username, email, password);
         res.json({ message: 'User registered successfully!', data: newUser });
@@ -20,18 +16,12 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
         console.log(req);
         console.log('failed to register');
     }
-}
-)}; 
+}; 
 async function login(req, res) {
     
-    const uri = 'mongodb+srv://nardos:nardi123@event.bb6br8p.mongodb.net/'; // Change 'myDatabase' to your database name
-
-// Connect to MongoDB
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
-  .then(async () => {
-    console.log('Connected to MongoDB');
-        
+  
     try {
+        dbConnection;
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
         const generatedToken = token.generateToken(loggedInUser);
@@ -39,7 +29,7 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });
     }
-  })}
+ }
 
 module.exports = {
     register,
