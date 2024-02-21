@@ -40,7 +40,7 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imagePath = path.join('https://event-app-back-end.onrender.com/public', event._doc.image);
+      const imagePath = path.join('public', event._doc.image);
       if (fs.existsSync(imagePath)) {
       return {
         _id: event._doc._id,
@@ -49,11 +49,11 @@ async function fetchEvent(req, res) {
         time: event._doc.time,
         rate: event._doc.rate,
         people: event._doc.people,
-        image: imagePath,
-      }; } else {
-        // Handle case where the file does not exist
+        image: 'https://event-app-back-end.onrender.com/'+imagePath,
+      }; 
+    } else {
         console.error(`File not found: ${imagePath}`);
-        return event; // Return the event without modifying the image
+        return event; 
       }
     }));
     res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
