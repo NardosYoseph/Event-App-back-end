@@ -49,7 +49,7 @@ async function fetchEvent(req, res) {
         time: event._doc.time,
         rate: event._doc.rate,
         people: event._doc.people,
-        image: 'https://event-app-back-end.onrender.com/'+imagePath,
+        image: 'https://event-app-back-end.onrender.com/'+event._doc.image,
       }; 
     } else {
         console.error(`File not found: ${imagePath}`);
