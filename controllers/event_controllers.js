@@ -21,7 +21,7 @@ async function createEvent(req, res) {
       console.log(req.body);
       const eventData = {
         ...req.body,
-        image: filename
+        image: "public/"+filename
       };
       const newEvent = await eventService.createEvent(eventData);
 
@@ -40,7 +40,7 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imagePath = path.join('public', event._doc.image);
+      const imagePath = path.join(event._doc.image);
       if (fs.existsSync(imagePath)) {
       return {
         _id: event._doc._id,
