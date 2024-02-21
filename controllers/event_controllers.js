@@ -52,7 +52,7 @@ async function fetchEvent(req, res) {
         image:  event._doc.image,
       }; 
     } else {
-        console.error(`File not found: ${imagePath}`);
+        console.error(`File not found: ${event._doc.image}`);
         return event; 
       }
     }));
