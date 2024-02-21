@@ -40,10 +40,8 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      const imagePath = path.join('public', event._doc.image);
+      const imagePath = path.join('https://event-app-back-end.onrender.com/public', event._doc.image);
       if (fs.existsSync(imagePath)) {
-        const imageData = await fs.promises.readFile(imagePath); // Read image file
-     // const base64Image = Buffer.from(imageData).toString('base64'); // Convert image data to base64
       return {
         _id: event._doc._id,
         description: event._doc.description,
@@ -51,7 +49,7 @@ async function fetchEvent(req, res) {
         time: event._doc.time,
         rate: event._doc.rate,
         people: event._doc.people,
-        image: imageData,
+        image: imagePath,
       }; } else {
         // Handle case where the file does not exist
         console.error(`File not found: ${imagePath}`);
