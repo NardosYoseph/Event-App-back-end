@@ -13,6 +13,7 @@ const storage = multer.diskStorage({
       if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
         return cb(new Error('Only image files are allowed!'), false);
       }
+      
       if (file.size > 1024 * 1024 * 5) { 
         return cb(new Error('File size exceeds the limit (5MB)!'), false);
       }
