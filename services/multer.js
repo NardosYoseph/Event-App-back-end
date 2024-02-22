@@ -1,27 +1,17 @@
 const multer = require('multer');
-const express = require('express');
+const { Storage } = require('@google-cloud/storage');
 
-const app = express();
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, './public'); 
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + file.originalname); }
-  });
-    const fileFilter = (req, file, cb) => {
-      if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/)) {
-        return cb(new Error('Only image files are allowed!'), false);
-      }
+const storage = new Storage({
+  projectId: 'event-app-67384', 
+  keyFilename: '../serviceAccountKey.json',
+});
 
-      if (file.size > 1024 * 1024 * 5) { 
-        return cb(new Error('File size exceeds the limit (5MB)!'), false);
-      }
-      cb(null, true);
-   }
-   app.use(express.urlencoded({ extended: true }));
-const upload = multer({ 
-  storage: storage,
-  fileFilter: fileFilter
-}).single('image'); 
-module.exports=upload;
+const bucket = storage.bucket('gs://event-app-67384.appspot.com'); 
+const multerStorage = multer.memoryStorage();
+
+// Initialize multer with the multer storage engine
+const upload = multer({
+  storage: multer.memoryStorage(),
+});
+
+module.exports = upload;

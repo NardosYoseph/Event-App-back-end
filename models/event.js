@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
 
 const eventSchema = new mongoose.Schema({
-    description: String,
-    date: Date,
-    time: String,
-    rate: Number,
-    people: Number,
-    image: String,
+    description: {type: String ,unique:false, required: true},
+    date: {type: Date ,unique:false, required: true},
+    time:{type: String ,unique:false, required: true},
+    rate: {type: Number ,unique:false, required: true},
+    people: {type: Number ,unique:false, required: true},
+    image: {type: String ,unique:false, required: true},
+    // userId :{
+    //   type: mongoose.
+    //   reference :"User"
+    // }
 
   });
   const Event = mongoose.model('Event', eventSchema);

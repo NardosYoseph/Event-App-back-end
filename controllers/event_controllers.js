@@ -2,31 +2,35 @@ const mongoose = require('mongoose');
 const upload = require("../services/multer");
 const eventService = require('../services/event_service');
 const multer = require('multer');
-const dbConnection = require('../config/database')
-const fs = require('fs');
-const path = require('path');
+const dbConnection = require('../config/database');
+const { bucket } = require('../config/firebase-config'); 
+
 
 async function createEvent(req, res) {
    
   try {
     dbConnection;
-    upload(req, res, async (err) => { 
-     
-      if (err instanceof multer.MulterError) {
-        return res.status(400).json({ error: err.message });
-      } else if (err) {
-        return res.status(500).json({ error: err });
-      }
-      const filename = req.file.filename;
-      console.log(req.body);
-      const eventData = {
-        ...req.body,
-        image: "public/"+filename
-      };
-      const newEvent = await eventService.createEvent(eventData);
+    const eventData =req.body;
+    // Use multer upload middleware to handle file upload
+    // upload(req, res, async function (err) {
+    //   if (err) {
+    //     return res.status(400).json({ error: 'Image upload failed' });
+    //   }
 
+      // Check if req.file is populated
+    //   if (!req.file) {
+    //     return res.status(400).json({ error: 'Image is required' });
+    //   }
+    // const imageUrl = req.file.location;
+    //   console.log(req.body);
+    //   const eventData = {
+    //     ...req.body,
+    //     image: imageUrl
+    //   };
+
+      const newEvent = await eventService.createEvent(eventData);
       res.status(200).json({ message: 'Event created successfully', newEvent });
-    });
+
   } catch (err) {
     console.error('Error creating event:', err);
     res.status(500).json({ error: err.message });
@@ -40,8 +44,11 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-     // const imagePath = path.join('public', event._doc.image);
-      if (fs.existsSync(event._doc.image)) {
+      if (event._doc.image) {
+          const [metadata] = await Promise.all([
+            bucket.file(imageUrl).getMetadata(), // Fetch metadata from Firebase Storage
+            // Additional operations on the event object if needed
+          ]);
       return {
         _id: event._doc._id,
         description: event._doc.description,
@@ -49,7 +56,7 @@ async function fetchEvent(req, res) {
         time: event._doc.time,
         rate: event._doc.rate,
         people: event._doc.people,
-        image:  event._doc.image,
+        image:  metadata.publicUrl,
       }; 
     } else {
         console.error(`File not found: ${event._doc.image}`);
