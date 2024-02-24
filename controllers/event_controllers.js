@@ -44,11 +44,7 @@ async function fetchEvent(req, res) {
 
     const eventList = await eventService.fetchEvent();
     const formattedEventList = await Promise.all(eventList.map(async event => {
-      if (event._doc.image) {
-          const [metadata] = await Promise.all([
-            bucket.file(imageUrl).getMetadata(), // Fetch metadata from Firebase Storage
-            // Additional operations on the event object if needed
-          ]);
+     
       return {
         _id: event._doc._id,
         description: event._doc.description,
@@ -56,12 +52,8 @@ async function fetchEvent(req, res) {
         time: event._doc.time,
         rate: event._doc.rate,
         people: event._doc.people,
-        image:  metadata.publicUrl,
+        image:  event._doc.image,
       }; 
-    } else {
-        console.error(`File not found: ${event._doc.image}`);
-        return event; 
-      }
     }));
     res.status(200).json({ message: 'Event fetched successfully', eventList: formattedEventList });
  
