@@ -22,7 +22,7 @@ async function loginUser(email, password) {
   }
   const isMatch = await bcryptjs.compare(password, user.password);
   if (!isMatch) {
-    throw new Error('Invalid email or password');
+    throw new Error('password');
   }
   return user;
 }
