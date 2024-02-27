@@ -1,9 +1,7 @@
-//const mongoose = require('mongoose');
+
 const upload = require("../services/multer");
 const eventService = require('../services/event_service');
-//const multer = require('multer');
-const dbConnection = require('../config/database');
-//const { bucket } = require('../config/firebase-config'); 
+const dbConnection = require('../config/database'); 
 const passport =require("../config/passport")
 
 
