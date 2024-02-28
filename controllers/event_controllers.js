@@ -10,7 +10,6 @@ async function createEvent(req, res) {
     dbConnection;
     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
       if (err || !user) {
-        // Unauthorized: JWT token is invalid or missing
         return res.status(401).json({ error: 'Unauthorized' });
       }
       const eventData =req.body;
@@ -52,7 +51,28 @@ async function fetchEvent(req, res) {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+async function fetchEventbyID(req, res) {
+  try {
+    dbConnection;
+
+    passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+      if (err || !user) {
+        return res.status(401).json({ error: 'Unauthorized' });
+      }
+      const event = await eventService.fetchEventbyID(req.params.id);
+      
+      res.status(200).json({ message: 'Event fetched successfully',event: event });
+    })(req, res);
+
+  } catch (err) {
+    console.error('Error fetching event:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
+
 module.exports = {
   createEvent,
-  fetchEvent
+  fetchEvent,
+  fetchEventbyID
 }

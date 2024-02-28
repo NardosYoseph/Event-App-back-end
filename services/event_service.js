@@ -10,8 +10,14 @@ async function fetchEvent() {
   const events = await Event.find();
   return events;
 }
+async function fetchEventbyID(eventID) {
+
+  const event = await Event.findOne(eventID);
+  return event;
+}
 
 module.exports = {
   createEvent,
-  fetchEvent
+  fetchEvent,
+  fetchEventbyID
 };
