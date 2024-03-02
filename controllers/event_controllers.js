@@ -60,7 +60,6 @@ async function fetchEventbyID(req, res) {
         return res.status(401).json({ error: 'Unauthorized' });
       }
       const event = await eventService.fetchEventbyID(req.params.id);
-      
       res.status(200).json({ message: 'Event fetched successfully',event: event });
     })(req, res);
 
