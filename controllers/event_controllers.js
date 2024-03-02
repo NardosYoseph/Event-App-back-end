@@ -35,6 +35,7 @@ async function fetchEvent(req, res) {
        
         return {
           _id: event._doc._id,
+          title:event._doc.title,
           description: event._doc.description,
           date: event._doc.date,
           time: event._doc.time,
