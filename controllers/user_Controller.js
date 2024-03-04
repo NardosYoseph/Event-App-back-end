@@ -41,7 +41,7 @@ async function login(req, res) {
  
  passport.authenticate('jwt', { session: false }), (req, res) => {
     const userId = req.user.id; // Access user ID from verified refresh token
-    const newAccessToken = generateAccessToken(userId); // Function to generate new access token
+    const newAccessToken = token.generateToken(userId); // Function to generate new access token
     res.json({ accessToken: newAccessToken });
   }
 } catch (err) {
