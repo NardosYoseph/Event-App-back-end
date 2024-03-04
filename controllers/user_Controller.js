@@ -39,11 +39,14 @@ async function login(req, res) {
         dbConnection;
   
  
- passport.authenticate('jwt', { session: false }), (req, res) => {
+ passport.authenticate('jwt', { session: false },async (err, user, info) => {
+    if (err || !user) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    } 
     const userId = req.user.id; // Access user ID from verified refresh token
     const newAccessToken = token.generateToken(userId); // Function to generate new access token
     res.json({ accessToken: newAccessToken });
-  }
+  })(req, res);
 } catch (err) {
     console.error('Error creating event:', err);
     res.status(500).json({ error: err.message });
