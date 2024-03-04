@@ -32,7 +32,27 @@ async function login(req, res) {
     }
  }
 
+ async function refreshToken(req, res) {
+    
+  
+    try {
+        dbConnection;
+  
+ 
+ passport.authenticate('jwt', { session: false }), (req, res) => {
+    const userId = req.user.id; // Access user ID from verified refresh token
+    const newAccessToken = generateAccessToken(userId); // Function to generate new access token
+    res.json({ accessToken: newAccessToken });
+  }
+} catch (err) {
+    console.error('Error creating event:', err);
+    res.status(500).json({ error: err.message });
+  }
+
+}
+
 module.exports = {
     register,
     login,
+    refreshToken
 };
