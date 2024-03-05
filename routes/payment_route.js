@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const paymentController = require('../controllers/pament_controller');
+const paymentController = require('../controllers/payment_controller');
 
 
 router.post('/verifyPayment',paymentController.verifyPayment);
