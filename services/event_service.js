@@ -12,7 +12,7 @@ async function fetchEvent() {
 }
 async function fetchEventbyID(eventID) {
 
-  const event = await Event.findOne(eventID);
+  const event = await Event.findOne({ _id: eventID });
   return event;
 }
 
