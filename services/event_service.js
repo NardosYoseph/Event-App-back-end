@@ -11,8 +11,9 @@ async function fetchEvent() {
   return events;
 }
 async function fetchEventbyID(eventID) {
+  console.log(eventID);
 
-  const event = await Event.findOne({ _id: eventID });
+  const event = await Event.findOne({_id:eventID});
   return event;
 }
 
