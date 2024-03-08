@@ -5,7 +5,7 @@ const eventController = require('../controllers/event_controllers');
 
 router.post('/create',eventController.createEvent);
 router.get('/allEvents', eventController.fetchEvent);
-router.get('/event', eventController.fetchEventbyID);
+router.post('/event', eventController.fetchEventbyID);
 
 
 module.exports = router;
