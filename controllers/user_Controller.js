@@ -34,11 +34,8 @@ async function login(req, res) {
 
  async function refreshToken(req, res) {
     
-  
     try {
         dbConnection;
-  
- 
  passport.authenticate('jwt', { session: false },async (err, user, info) => {
     if (err || !user) {
       return res.status(401).json({ error: 'Unauthorized' });
@@ -53,9 +50,28 @@ async function login(req, res) {
   }
 
 }
+async function fetchUserbyID(req, res) {
+    try {
+      dbConnection;
+  
+      passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+        if (err || !user) {
+          return res.status(401).json({ error: 'Unauthorized' });
+        }
+        console.log(req.params);
+        const event = await userService.fetchUserbyID(req.body.id);
+        res.status(200).json({ message: 'Event fetched successfully',event: event });
+      })(req, res);
+  
+    } catch (err) {
+      console.error('Error fetching event:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 
 module.exports = {
     register,
     login,
-    refreshToken
+    refreshToken,
+    fetchUserbyID
 };

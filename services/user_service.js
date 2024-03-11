@@ -26,7 +26,16 @@ async function loginUser(email, password) {
   }
   return user;
 }
+
+async function fetchUserbyID(userID) {
+  console.log(userID);
+
+  const user = await User.findOne({_id:userID});
+  return user;
+}
+
 module.exports = {
   registerUser,
   loginUser,
+  fetchUserbyID
 };

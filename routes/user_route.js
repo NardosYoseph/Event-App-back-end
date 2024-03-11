@@ -6,5 +6,7 @@ router.post('/register', userController.register);
 
 router.post('/login', userController.login);
 router.post('/refresh', userController.refreshToken);
+router.post('/singleUSer', userController.fetchUserbyID);
+
 
 module.exports = router;
