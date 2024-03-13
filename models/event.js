@@ -10,6 +10,7 @@ const eventSchema = new mongoose.Schema({
     totalTickets: {type: Number ,unique:false, required: true},
     paidTickets: {type: Number ,unique:false, required: true},
     image: {type: String ,unique:false, required: true},
+    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
     // userId :{
     //   type: mongoose.
     //   reference :"User"
