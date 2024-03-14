@@ -3,7 +3,7 @@ const upload = require("../services/multer");
 const eventService = require('../services/event_service');
 const dbConnection = require('../config/database'); 
 const passport =require("../config/passport")
-
+const User = require('../models/user');
 
 async function createEvent(req, res) {
   try {
@@ -70,6 +70,32 @@ async function fetchEventbyID(req, res) {
     res.status(500).json({ error: 'Internal server error' });
   }
 }
+
+// async function buyTicket(eventId, userId) {
+//   try {
+//     dbConnection;
+//     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
+//       if (err || !user) {
+//         return res.status(401).json({ error: 'Unauthorized' });
+//       }
+//     // Update Event (decrement ticketsAvailable and add user ID to attendees)
+//     await Event.findOneAndUpdate(
+//       { _id: eventId },
+//       { $inc: { ticketsAvailable: -1 }, $push: { attendees: userId } },
+//       { new: true } // Return the updated document
+//     );
+
+//     // Update User (optional: add purchased event ID to purchasedEvents)
+//     if (userSchema.paths.purchasedEvents) { // Check if purchasedEvents field exists
+//       await User.findByIdAndUpdate(userId, { $push: { purchasedEvents: eventId } });
+//     }
+
+//     console.log('Ticket purchased successfully!');
+//   })(req, res);
+//   } catch (error) {
+//     console.error('Error purchasing ticket:', error);
+//   }
+// }
 
 
 module.exports = {

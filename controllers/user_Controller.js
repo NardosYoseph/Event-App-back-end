@@ -60,11 +60,11 @@ async function fetchUserbyID(req, res) {
         }
         console.log(req.params);
         const event = await userService.fetchUserbyID(req.body.id);
-        res.status(200).json({ message: 'Event fetched successfully',event: event });
+        res.status(200).json({ message: 'user fetched successfully',event: event });
       })(req, res);
   
     } catch (err) {
-      console.error('Error fetching event:', err);
+      console.error('Error fetching user:', err);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
