@@ -62,8 +62,8 @@ async function fetchEventbyID(req, res) {
         return res.status(401).json({ error: 'Unauthorized' });
       }
       console.log(req.params);
-      const event = await eventService.fetchEventbyID(req.body.id);
-      res.status(200).json({ message: 'Event fetched successfully',event: event });
+      const user = await eventService.fetchEventbyID(req.body.id);
+      res.status(200).json({ message: 'Event fetched successfully',user: user });
     })(req, res);
 
   } catch (err) {
