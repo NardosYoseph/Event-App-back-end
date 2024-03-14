@@ -42,6 +42,7 @@ async function fetchEvent(req, res) {
           rate: event._doc.rate,
           people: event._doc.people,
           image:  event._doc.image,
+          price: event._doc.price
         }; 
       }));
       res.status(200).json({ message: 'Event fetched successfully',eventList: formattedEventList });
