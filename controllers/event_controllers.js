@@ -57,14 +57,8 @@ async function fetchEventbyID(req, res) {
   try {
     dbConnection;
 
-    passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-      if (err || !user) {
-        return res.status(401).json({ error: 'Unauthorized' });
-      }
-      console.log(req.params);
       const event = await eventService.fetchEventbyID(req.body.id);
       res.status(200).json({ message: 'Event fetched successfully',event: event });
-    })(req, res);
 
   } catch (err) {
     console.error('Error fetching event:', err);
@@ -72,35 +66,31 @@ async function fetchEventbyID(req, res) {
   }
 }
 
-// async function buyTicket(eventId, userId) {
-//   try {
-//     dbConnection;
-//     passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-//       if (err || !user) {
-//         return res.status(401).json({ error: 'Unauthorized' });
-//       }
-//     // Update Event (decrement ticketsAvailable and add user ID to attendees)
-//     await Event.findOneAndUpdate(
-//       { _id: eventId },
-//       { $inc: { ticketsAvailable: -1 }, $push: { attendees: userId } },
-//       { new: true } // Return the updated document
-//     );
+async function buyTicket(eventId, userId) {
+  try {
+    dbConnection;
+   
+    await Event.findOneAndUpdate(
+      { _id: eventId },
+      { $inc: { ticketsAvailable: -1 }, $push: { attendees: userId } },
+      { new: true } 
+    );
 
-//     // Update User (optional: add purchased event ID to purchasedEvents)
-//     if (userSchema.paths.purchasedEvents) { // Check if purchasedEvents field exists
-//       await User.findByIdAndUpdate(userId, { $push: { purchasedEvents: eventId } });
-//     }
+    if (userSchema.paths.purchasedEvents) { // Check if purchasedEvents field exists
+      await User.findByIdAndUpdate(userId, { $push: { purchasedEvents: eventId } });
+    }
 
-//     console.log('Ticket purchased successfully!');
-//   })(req, res);
-//   } catch (error) {
-//     console.error('Error purchasing ticket:', error);
-//   }
-// }
+    console.log('Ticket purchased successfully!');
+ 
+  } catch (error) {
+    console.error('Error purchasing ticket:', error);
+  }
+}
 
 
 module.exports = {
   createEvent,
   fetchEvent,
-  fetchEventbyID
+  fetchEventbyID,
+  buyTicket
 }
