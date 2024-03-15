@@ -1,9 +1,10 @@
 const User = require('../models/user'); // Import the User model
 const bcryptjs = require('bcryptjs');
+const dbConnection = require('../config/database'); 
 
 async function registerUser(username,email, password) {
  
-  
+  dbConnection
   const existingUser = await User.findOne({ email });
   if (existingUser) {
     throw new Error('Email already exists');
@@ -16,6 +17,7 @@ async function registerUser(username,email, password) {
 }
 
 async function loginUser(email, password) {
+  dbConnection
   const user = await User.findOne({ email });
   if (!user) {
     throw new Error('Invalid email');
@@ -28,6 +30,7 @@ async function loginUser(email, password) {
 }
 
 async function fetchUserbyID(userID) {
+  dbConnection
   console.log(userID);
 
   const user = await User.findOne({_id:userID});

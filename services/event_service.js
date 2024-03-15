@@ -1,5 +1,4 @@
 const Event = require('../models/event'); 
-const dbConnection = require('../config/database'); 
 
 
 async function createEvent(eventData) {

@@ -6,7 +6,6 @@ const dbConnection = require('../config/database')
 async function register(req, res) {
  
     try {
-        dbConnection
         const { username, email, password } = req.body;
         const newUser = await userService.registerUser(username, email, password);
         res.json({ message: 'User registered successfully!', data: newUser });
@@ -21,7 +20,6 @@ async function login(req, res) {
     
   
     try {
-        dbConnection;
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
         const generatedToken = token.generateToken(loggedInUser);
@@ -34,8 +32,6 @@ async function login(req, res) {
  async function refreshToken(req, res) {
     
     try {
-        dbConnection;
-
     const userId = req.user.id; // Access user ID from verified refresh token
     const newAccessToken = token.generateToken(userId); // Function to generate new access token
     res.json({ accessToken: newAccessToken });
@@ -47,16 +43,10 @@ async function login(req, res) {
 }
 async function fetchUserbyID(req, res) {
     try {
-      dbConnection;
-  
-      passport.authenticate('jwt', { session: false }, async (err, user, info) => {
-        if (err || !user) {
-          return res.status(401).json({ error: 'Unauthorized' });
-        }
         console.log(req.params);
         const singleUser = await userService.fetchUserbyID(req.body.id);
         res.status(200).json({ message: 'user fetched successfully',user: singleUser });
-      })(req, res);
+
   
     } catch (err) {
       console.error('Error fetching user:', err);
