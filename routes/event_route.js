@@ -5,8 +5,8 @@ const passport= require("../config/passport")
 const eventController = require('../controllers/event_controllers');
 
 router.post('/create',eventController.createEvent);
-router.get('/allEvents',passport.authenticate('jwt'), eventController.fetchEvent);
-router.post('/event', eventController.fetchEventbyID);
+router.get('/allEvents', eventController.fetchEvent);
+router.post('/event', passport.authenticate('jwt'),eventController.fetchEventbyID);
 
 
 module.exports = router;
