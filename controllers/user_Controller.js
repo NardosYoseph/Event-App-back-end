@@ -2,7 +2,6 @@ const userService = require('../services/user_service');
 const mongoose = require('mongoose');
 const token= require('../config/generate_token');
 const dbConnection = require('../config/database')
-const passport= require("../config/passport");
 
 async function register(req, res) {
  
@@ -36,14 +35,10 @@ async function login(req, res) {
     
     try {
         dbConnection;
- passport.authenticate('jwt', { session: false },async (err, user, info) => {
-    if (err || !user) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    } 
+
     const userId = req.user.id; // Access user ID from verified refresh token
     const newAccessToken = token.generateToken(userId); // Function to generate new access token
     res.json({ accessToken: newAccessToken });
-  })(req, res);
 } catch (err) {
     console.error('Error creating event:', err);
     res.status(500).json({ error: err.message });

@@ -1,8 +1,9 @@
+const eventController = require('../controllers/event_controllers');
 
-async function verifyPayment(req, res) {
+async function paymentStatus(req, res) {
     console.log('Received callback:', req);
         res.status(200);
-    await buy
+    
   }
 
-  module.exports = {verifyPayment};
+  module.exports = {paymentStatus};

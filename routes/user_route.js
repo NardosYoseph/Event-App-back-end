@@ -5,8 +5,8 @@ const userController = require('../controllers/user_Controller');
 router.post('/register', userController.register);
 
 router.post('/login', userController.login);
-router.post('/refresh', userController.refreshToken);
-router.post('/singleUser', userController.fetchUserbyID);
+router.post('/refresh',passport.authenticate('jwt', { session: false }), userController.refreshToken);
+router.post('/singleUser',passport.authenticate('jwt', { session: false }), userController.fetchUserbyID);
 
 
 module.exports = router;
