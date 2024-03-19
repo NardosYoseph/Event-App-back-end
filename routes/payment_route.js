@@ -3,6 +3,8 @@ const router = express.Router();
 
 const paymentController = require('../controllers/payment_controller');
 
-router.post('/paymentStatus:txnRef',paymentController.paymentStatus);
+router.get('/paymentStatus',paymentController.paymentStatus);
+router.post('/storePayment',paymentController.storePayment);
+
 
 module.exports=router;
