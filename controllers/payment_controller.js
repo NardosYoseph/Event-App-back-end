@@ -15,7 +15,7 @@ async function paymentStatus(req, res) {
   async function verifyPayment(txnRef) {
     try{
     const payment_status= await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
-    console.log("verification",payment_status)
+    console.log("verification:",payment_status)
     }catch{
     }
     }
