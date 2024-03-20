@@ -1,22 +1,24 @@
 const eventController = require('../controllers/event_controllers');
 const paymentService= require("../services/payment_service");
+const axios= require("axios");
 const express = require('express');
 const router = express.Router();
 
 async function paymentStatus(req, res) {
     console.log('Received callback:', req);
-   const txnRef=req.params;
-verifyPayment(txnRef);
-
+   const txnRef=req.params.txnRef;
+ const response =await verifyPayment(txnRef);
+if(response["status"]=="successful"){
+  eventController.buyTicket
+}
       res.status(200).json(paymentStatus);
   }
 
   async function verifyPayment(txnRef) {
     try{
-    const payment_status= router.get('https://api.chapa.co/v1/transaction/verify/$txnRef');
+    const payment_status= axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
     console.log(payment_status)
     }catch{
-res.status(500).json({message:"error storing payment"});
     }
     }
     async function storePayment(req, res) {

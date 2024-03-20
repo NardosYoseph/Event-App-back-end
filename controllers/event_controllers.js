@@ -58,8 +58,8 @@ async function buyTicket(eventId, userId) {
 }
 
 async function searchEvent(req, res) {
-  const searchTerm = req.query.q; // Access search term from query parameter
-
+  const searchTerm = req.params.q; // Access search term from query parameter
+console.log(searchTerm)
   try {
     const events= await eventService.searchEvent(searchTerm);
 
