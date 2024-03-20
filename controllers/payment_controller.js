@@ -13,8 +13,8 @@ verifyPayment(txnRef);
 
   async function verifyPayment(txnRef) {
     try{
-    await router.get('https://api.chapa.co/v1/transaction/verify/$txnRef');
-      res.status(200).json(paymentData);
+    const payment_status= router.get('https://api.chapa.co/v1/transaction/verify/$txnRef');
+    console.log(payment_status)
     }catch{
 res.status(500).json({message:"error storing payment"});
     }

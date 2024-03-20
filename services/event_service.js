@@ -31,9 +31,22 @@ async function buyTicket(eventId, userId) {
   return eventPurchased;
 }
 
+async function searchEvent(searchTerm) {
+  dbConnection; 
+  const query = {
+    $or: [
+      { title: { $regex: searchTerm, $options: 'i' } }, // Case-insensitive search on title
+      { description: { $regex: searchTerm, $options: 'i' } } // Case-insensitive search on description
+      // ... add more search criteria based on your needs
+    ]}
+    const events = await Event.find(query);
+  return events;
+}
+
 module.exports = {
   createEvent,
   fetchEvent,
+  searchEvent,
   fetchEventbyID,
   buyTicket
 };

@@ -57,10 +57,24 @@ async function buyTicket(eventId, userId) {
   }
 }
 
+async function searchEvent(req, res) {
+  const searchTerm = req.query.q; // Access search term from query parameter
+
+  try {
+    const events= await eventService.searchEvent(searchTerm);
+
+    res.status(200).json({ message: 'Events searched successfully', events });
+  } catch (err) {
+    console.error('Error fetching events:', err);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+}
+
 
 module.exports = {
   createEvent,
   fetchEvent,
+  searchEvent,
   fetchEventbyID,
   buyTicket
 }
