@@ -11,19 +11,17 @@ async function paymentStatus(req, res) {
 
       res.status(200).json(response);
   }
-
-  async function verifyPayment(txnRef) {
+async function verifyPayment(txnRef) {
     try{
     const payment_status= await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
     console.log("verification:",payment_status)
     }catch{
     }
     }
-    async function storePayment(req, res) {
-      console.log('Received callback:', req);
+async function storePayment(req, res) {
       try{
         const paymentData= await paymentService.storePayment(req.body);
-        res.status(200).json(paymentData);
+        res.status(200).json({message:'payment stored successfuly',payment:paymentData});
       }catch{
   res.status(500).json({message:"error storing payment"});
   
