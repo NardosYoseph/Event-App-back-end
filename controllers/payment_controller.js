@@ -8,10 +8,13 @@ async function paymentStatus(req, res) {
   console.log('Received callback:', req.body);
   const txnRef = req.params.txnRef;
   try{
-  const verificationResponse = await verifyPayment(txnRef);
+  // const verificationResponse = await verifyPayment(txnRef);
+  
+  const verificationResponse = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
 
-  if (verificationResponse === 'success') {
+  if (verificationResponse.status == 'success') {
     const { userId, eventId } = await retrieveUserEventId(txnRef);
+    
 
     try {
       const eventPurchased = await eventController.buyTicket(eventId, userId);
