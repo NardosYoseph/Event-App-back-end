@@ -1,4 +1,5 @@
 const Event = require('../models/event'); 
+const mongoose = require('mongoose');
 const User = mongoose.model('User');
 const dbConnection = require('../config/database'); 
 
