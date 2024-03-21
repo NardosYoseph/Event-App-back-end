@@ -6,11 +6,16 @@ const router = express.Router();
 
 async function paymentStatus(req, res) {
   console.log('Received callback:', req.body);
+  console.log('Received callback:', req.params);
+
   const txnRef = req.params.txnRef;
+
   try{
   // const verificationResponse = await verifyPayment(txnRef);
   
-  const verificationResponse = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
+  const verificationResponse = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`,{headers: {
+    Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,
+  }},);
 
   if (verificationResponse.status == 'success') {
     const { userId, eventId } = await retrieveUserEventId(txnRef);
