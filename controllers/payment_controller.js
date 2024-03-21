@@ -22,13 +22,9 @@ async function paymentStatus(req, res) {
   if (req.body['status'] == 'success') {
     console.log("chapa response success");
 
-    try {
+  
       const eventPurchased = await eventController.buyTicket(eventId, userId);
       res.status(200).json({ message: 'Ticket purchased successfully!', event: eventPurchased });
-    } catch (error) {
-      console.error('Error purchasing ticket:', error);
-      res.status(500).json({ message: 'Failed to purchase ticket' }); 
-    }
   } else {
     console.error('Payment verification failed:');
     res.status(400).json({ message: 'Payment verification failed' }); 
