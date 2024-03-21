@@ -8,18 +8,14 @@ async function paymentStatus(req, res) {
   console.log('Received callback:', req.body);
   console.log('Received callback:', req.params);
 
-  const txnRef = req.params.txnRef;
+  const tx_ref = req.params.txnRef;
   const eventId=req.params.eventId;
   const userId=req.params.userId;
 
   try{
-  // const verificationResponse = await verifyPayment(txnRef);
-  
-  // const verificationResponse = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`,{headers: {
-  //   Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
-  // }},);
+  const verificationResponse = await verifyPayment(tx_ref);
 
-  if (req.body['status'] == 'success') {
+  if (verificationResponse.status == 200) {
     console.log("chapa response success");
 
   
@@ -35,9 +31,11 @@ async function paymentStatus(req, res) {
 }
 
 
-async function verifyPayment(txnRef) {
+async function verifyPayment(tx_ref) {
   try {
-    const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
+    const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${tx_ref}`,{headers: {
+      Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
+    }},);
     const payment_status=response.status;
     console.log("verification:", payment_status.status)
     return payment_status;
@@ -54,15 +52,6 @@ async function storePayment(req, res) {
     console.log('error storing payment')
     res.status(500).json({ message: "error storing payment" });
 
-  }
-}
-async function retrieveUserEventId(txnRef) {
-  try {
-    const response = await paymentService.retrieveUserEventId(txnRef);
-    return response;
-  } catch (error) {
-    console.error('Error retrieving user and event ID:', error);
-    throw error;
   }
 }
 
