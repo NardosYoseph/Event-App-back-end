@@ -9,6 +9,8 @@ async function paymentStatus(req, res) {
   console.log('Received callback:', req.params);
 
   const txnRef = req.params.txnRef;
+  const eventId=req.params.eventId;
+  const userId=req.params.userId;
 
   try{
   // const verificationResponse = await verifyPayment(txnRef);
@@ -19,8 +21,6 @@ async function paymentStatus(req, res) {
 
   if (req.body['status'] == 'success') {
     console.log("chapa response success");
-    const { userId, eventId } = await retrieveUserEventId(txnRef);
-    
 
     try {
       const eventPurchased = await eventController.buyTicket(eventId, userId);
