@@ -7,6 +7,7 @@ const router = express.Router();
 async function paymentStatus(req, res) {
   console.log('Received callback:', req.body);
   const txnRef = req.params.txnRef;
+  try{
   const verificationResponse = await verifyPayment(txnRef);
 
   if (verificationResponse === 'success') {
@@ -22,6 +23,9 @@ async function paymentStatus(req, res) {
   } else {
     console.error('Payment verification failed:', verificationResponse);
     res.status(400).json({ message: 'Payment verification failed' }); // Inform client of verification failure
+  }  } catch (error) {
+    console.error('Error verifying payment:', error);
+    res.status(500).json({ message: 'Internal server error' }); // Inform client of general error
   }
 }
 
