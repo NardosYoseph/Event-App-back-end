@@ -1,5 +1,5 @@
 const Event = require('../models/event'); 
-
+const User = mongoose.model('User');
 const dbConnection = require('../config/database'); 
 
 async function createEvent(eventData) {
@@ -25,7 +25,7 @@ async function buyTicket(eventId, userId) {
     { $inc: { availableTickets: -1 }, $push: { attendees: userId } },
     { new: true } 
   );
-  if (userSchema.paths.events) { 
+  if (User.schema.paths.events) { 
     await User.findByIdAndUpdate(userId, { $push: { events: eventId } });
   }
   return eventPurchased;
