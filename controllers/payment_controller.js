@@ -17,7 +17,7 @@ async function paymentStatus(req, res) {
     Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
   }},);
 
-  if (verificationResponse.status == 'success') {
+  if (req.body.status == 'success') {
     const { userId, eventId } = await retrieveUserEventId(txnRef);
     
 
