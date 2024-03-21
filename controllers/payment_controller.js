@@ -18,14 +18,14 @@ async function paymentStatus(req, res) {
       res.status(200).json({ message: 'Ticket purchased successfully!', event: eventPurchased });
     } catch (error) {
       console.error('Error purchasing ticket:', error);
-      res.status(500).json({ message: 'Failed to purchase ticket' }); // Inform client of error
+      res.status(500).json({ message: 'Failed to purchase ticket' }); 
     }
   } else {
     console.error('Payment verification failed:', verificationResponse);
-    res.status(400).json({ message: 'Payment verification failed' }); // Inform client of verification failure
+    res.status(400).json({ message: 'Payment verification failed' }); 
   }  } catch (error) {
     console.error('Error verifying payment:', error);
-    res.status(500).json({ message: 'Internal server error' }); // Inform client of general error
+    res.status(500).json({ message: 'Internal server error' }); 
   }
 }
 
@@ -33,8 +33,8 @@ async function paymentStatus(req, res) {
 async function verifyPayment(txnRef) {
   try {
     const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${txnRef}`);
-    const payment_status=response.body.status;
-    console.log("verification:", payment_status.body.status)
+    const payment_status=response.status;
+    console.log("verification:", payment_status.status)
     return payment_status;
   } catch {
   }
