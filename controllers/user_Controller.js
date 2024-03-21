@@ -23,6 +23,8 @@ async function login(req, res) {
         const { email, password } = req.body;
         const loggedInUser = await userService.loginUser(email, password);
         const generatedToken = token.generateToken(loggedInUser);
+        console.log('Login successful');
+
         res.json({ message: 'Login successful!', token: generatedToken });
     } catch (err) {
         res.status(err.status || 401).json({ message: err.message });
@@ -33,7 +35,8 @@ async function login(req, res) {
     
     try {
     const userId = req.user.id; // Access user ID from verified refresh token
-    const newAccessToken = token.generateToken(userId); // Function to generate new access token
+    const newAccessToken = token.generateToken(userId); 
+    console.log('refresh token successful');
     res.json({ accessToken: newAccessToken });
 } catch (err) {
     console.error('Error creating event:', err);
@@ -43,11 +46,9 @@ async function login(req, res) {
 }
 async function fetchUserbyID(req, res) {
     try {
-        console.log(req.params);
         const singleUser = await userService.fetchUserbyID(req.body.id);
+    console.log('user fetched successfully');
         res.status(200).json({ message: 'user fetched successfully',user: singleUser });
-
-  
     } catch (err) {
       console.error('Error fetching user:', err);
       res.status(500).json({ error: 'Internal server error' });

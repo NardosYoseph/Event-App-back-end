@@ -17,7 +17,8 @@ async function paymentStatus(req, res) {
   //   Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
   // }},);
 
-  if (req.body.status == 'success') {
+  if (req.body['status'] == 'success') {
+    console.log("chapa response success");
     const { userId, eventId } = await retrieveUserEventId(txnRef);
     
 
@@ -29,7 +30,7 @@ async function paymentStatus(req, res) {
       res.status(500).json({ message: 'Failed to purchase ticket' }); 
     }
   } else {
-    console.error('Payment verification failed:', verificationResponse);
+    console.error('Payment verification failed:');
     res.status(400).json({ message: 'Payment verification failed' }); 
   }  } catch (error) {
     console.error('Error verifying payment:', error);
@@ -50,8 +51,10 @@ async function verifyPayment(txnRef) {
 async function storePayment(req, res) {
   try {
     const paymentData = await paymentService.storePayment(req.body);
+    console.log('payment stored')
     res.status(200).json({ message: 'payment stored successfuly', payment: paymentData });
   } catch {
+    console.log('error storing payment')
     res.status(500).json({ message: "error storing payment" });
 
   }

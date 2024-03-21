@@ -29,6 +29,8 @@ async function fetchEvent(req, res) {
           price: event._doc.price
         }; 
       }));
+    console.error('Event fetched successfully');
+      
       res.status(200).json({ message: 'Event fetched successfully',eventList: formattedEventList });
   } catch (err) {
     console.error('Error fetching event:', err);
@@ -38,6 +40,8 @@ async function fetchEvent(req, res) {
 async function fetchEventbyID(req, res) {
   try {
       const event = await eventService.fetchEventbyID(req.body.id);
+    console.error('Event fetched successfully');
+
       res.status(200).json({ message: 'Event fetched successfully',event: event });
   } catch (err) {
     console.error('Error fetching event:', err);
@@ -48,6 +52,8 @@ async function fetchEventbyID(req, res) {
 async function buyTicket(eventId, userId) {
   try {
     const eventPurchased = await eventService.buyTicket(eventId,userId);
+    console.error('Ticket purchased successfully');
+
       res.status(200).json({ message: 'Ticket purchased successfully!',event: eventPurchased });
 
     console.log('Ticket purchased successfully!');

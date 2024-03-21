@@ -13,6 +13,7 @@ async function retrieveUserEventId(txnRef){
     const payment = await Payment.findOne({ txnRef }).populate('userId eventId');
       
           if (!payment) {
+            console.log("ft not found in db")
             throw new Error('Payment not found');
     }
     return { userId: payment.userId, eventId: payment.eventId };
