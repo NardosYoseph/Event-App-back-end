@@ -45,6 +45,7 @@ async function verifyPayment(txnRef) {
   }
 }
 async function storePayment(req, res) {
+  console.log(req.body)
   try {
     const paymentData = await paymentService.storePayment(req.body);
     console.log('payment stored')
