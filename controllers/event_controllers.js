@@ -52,11 +52,8 @@ async function fetchEventbyID(req, res) {
 async function buyTicket(eventId, userId) {
   try {
     const eventPurchased = await eventService.buyTicket(eventId,userId);
-    console.error('Ticket purchased successfully');
-
-      res.status(200).json({ message: 'Ticket purchased successfully!',event: eventPurchased });
-
     console.log('Ticket purchased successfully!');
+    return eventPurchased;
  
   } catch (error) {
     console.error('Error purchasing ticket:', error);
