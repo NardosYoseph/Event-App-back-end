@@ -33,7 +33,8 @@ async function paymentStatus(req, res) {
 
 async function verifyPayment(tx_ref) {
   try {
-    const response = await axios.get('https://api.chapa.co/v1/transaction/verify/'+tx_ref,{headers: {
+    const url = `https://api.chapa.co/v1/transaction/verify/${tx_ref}`;
+    const response = await axios.get(url,{headers: {
       Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
     }},);
     const payment_status=response['status'];
