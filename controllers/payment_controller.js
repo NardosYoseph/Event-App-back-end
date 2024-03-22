@@ -15,7 +15,7 @@ async function paymentStatus(req, res) {
   try{
   const verificationResponse = await verifyPayment(tx_ref);
 
-  if (verificationResponse == 'success') {
+  if (verificationResponse == 200) {
     console.log("chapa response success");
 
   
