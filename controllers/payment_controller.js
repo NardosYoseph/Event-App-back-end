@@ -1,5 +1,5 @@
 const eventController = require('../controllers/event_controllers');
-const paymentService = require("../services/payment_service");
+const paymentService = require('../services/payment_service');
 const axios = require("axios");
 const express = require('express');
 const router = express.Router();
@@ -33,7 +33,7 @@ async function paymentStatus(req, res) {
 
 async function verifyPayment(tx_ref) {
   try {
-    const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${tx_ref}`,{headers: {
+    const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/?tx_ref=${tx_ref}`,{headers: {
       Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
     }},);
     const payment_status=response['status'];
