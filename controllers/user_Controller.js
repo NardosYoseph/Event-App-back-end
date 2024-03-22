@@ -55,9 +55,21 @@ async function fetchUserbyID(req, res) {
     }
   }
 
+  async function findUserEvents(req, res) {
+    try {
+        const events = await userService.findUserEvents(req.params.userId);
+    console.log('events fetched successfully');
+        res.status(200).json({ message: 'events fetched successfully',events: events });
+    } catch (err) {
+      console.error('Error fetching events:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
+
 module.exports = {
     register,
     login,
     refreshToken,
-    fetchUserbyID
+    fetchUserbyID,
+    findUserEvents
 };

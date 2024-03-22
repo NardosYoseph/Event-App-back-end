@@ -37,8 +37,19 @@ async function fetchUserbyID(userID) {
   return user;
 }
 
+async function findUserEvents(userId){
+  
+    const user = await User.findById(userId).populate({
+      path: 'events',
+      match: { _id: { $in: user.events } } // Filter by IDs in user.events
+    });
+    return user;
+    }
+  
+
 module.exports = {
   registerUser,
   loginUser,
-  fetchUserbyID
+  fetchUserbyID,
+  findUserEvents
 };

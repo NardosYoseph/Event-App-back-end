@@ -6,6 +6,18 @@ async function storePayment(paymentData) {
     await payment.save();
     return payment;
   }
+  async function updatePayment(tx_ref){
+  const updatedPayment = await Payment.findOneAndUpdate(
+        { tx_ref },
+        { status: 'success' } 
+      );
+      if (!updatedPayment) {
+        throw new Error('Payment not found');
+      }
+      return updatePayment;
+  }
 
 
-module.exports={storePayment}
+module.exports={
+    storePayment,
+    updatePayment}

@@ -18,7 +18,7 @@ async function paymentStatus(req, res) {
   if (verificationResponse == 200) {
     console.log("chapa response success");
 
-  
+    const updatedPayment = await updatePayment(tx_ref);
       const eventPurchased = await eventController.buyTicket(eventId, userId);
       res.status(200).json({ message: 'Ticket purchased successfully!', event: eventPurchased });
   } else {
@@ -56,6 +56,17 @@ async function storePayment(req, res) {
   } catch(error) {
     console.log('error storing payment',error)
     res.status(500).json({ message: "error storing payment" });
+
+  }
+}
+
+async function updatePayment(tx_ref) {
+  console.error('update ft',tx_ref);
+  try {
+    const updatedPayment = await paymentService.updatePayment(tx_ref);
+    return updatedPayment;
+  } catch(error) {
+    console.log("error updating payment:", error)
 
   }
 }

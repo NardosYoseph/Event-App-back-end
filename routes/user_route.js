@@ -9,6 +9,8 @@ router.post('/register', userController.register);
 router.post('/login', userController.login);
 router.post('/refresh',passport.authenticate('jwt', { session: false }), userController.refreshToken);
 router.post('/singleUser',passport.authenticate('jwt', { session: false }), userController.fetchUserbyID);
+router.post('/findUserEvents/:userId',passport.authenticate('jwt', { session: false }), userController.findUserEvents);
+
 
 
 module.exports = router;
