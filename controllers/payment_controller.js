@@ -22,7 +22,7 @@ async function paymentStatus(req, res) {
       const eventPurchased = await eventController.buyTicket(eventId, userId);
       res.status(200).json({ message: 'Ticket purchased successfully!', event: eventPurchased });
   } else {
-    console.error('Payment verification failed:');
+    console.error('Payment verification failed:',verificationResponse);
     res.status(400).json({ message: 'Payment verification failed' }); 
   }  } catch (error) {
     console.error('Error verifying payment:', error);
