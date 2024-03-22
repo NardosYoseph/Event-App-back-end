@@ -41,14 +41,18 @@ async function fetchUserbyID(userID) {
 
 async function findUserEvents(userId){
   console.log(userId);
-  
-    const events = await User.findById({_id:userId}).populate({
-      path: 'events',
-      match: { _id: { $in: User.events } } // Filter by IDs in user.events
-    });
-  console.log(events);
     
-    return events;
+  const user = await User.findById(userId);
+  
+  if (!user) {
+    console.error('User not found');
+    return []; // or throw an error
+  }
+  
+  const events = await Event.find({ _id: { $in: user.events } });
+  console.log(events);
+  
+  return events;
     }
   
 
