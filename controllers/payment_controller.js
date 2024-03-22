@@ -39,7 +39,9 @@ async function verifyPayment(tx_ref) {
     const payment_status=response['status'];
     console.log("verification:", payment_status)
     return payment_status;
-  } catch {
+  } catch(error) {
+    console.log("error verification:", error)
+
   }
 }
 async function storePayment(req, res) {
@@ -48,8 +50,8 @@ async function storePayment(req, res) {
     const paymentData = await paymentService.storePayment(req.body);
     console.log('payment stored')
     res.status(200).json({ message: 'payment stored successfuly', payment: paymentData });
-  } catch {
-    console.log('error storing payment')
+  } catch(error) {
+    console.log('error storing payment',error)
     res.status(500).json({ message: "error storing payment" });
 
   }
