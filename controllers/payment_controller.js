@@ -36,8 +36,8 @@ async function verifyPayment(tx_ref) {
     const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${tx_ref}`,{headers: {
       Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
     }},);
-    const payment_status=response.status;
-    console.log("verification:", payment_status.status)
+    const payment_status=response;
+    console.log("verification:", payment_status)
     return payment_status;
   } catch {
   }
