@@ -15,7 +15,7 @@ async function paymentStatus(req, res) {
   try{
   const verificationResponse = await verifyPayment(tx_ref);
 
-  if (verificationResponse.status == 200) {
+  if (verificationResponse == 'success') {
     console.log("chapa response success");
 
   
@@ -36,7 +36,7 @@ async function verifyPayment(tx_ref) {
     const response = await axios.get(`https://api.chapa.co/v1/transaction/verify/${tx_ref}`,{headers: {
       Authorization:`Bearer CHASECK_TEST-UypQuM3qv8ILnTdCRpdqjrzmnQxIksKx`,'Content-Type': 'application/json'
     }},);
-    const payment_status=response;
+    const payment_status=response['status'];
     console.log("verification:", payment_status)
     return payment_status;
   } catch {
