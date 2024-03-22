@@ -6,9 +6,9 @@ const router = express.Router();
 
 async function paymentStatus(req, res) {
   console.log('Received callback:', req.body);
-  console.log('Received callback:', req.params.tx_ref);
+  console.log('Received callback:', req.params.trx_ref);
 
-  const tx_ref = req.params.txnRef;
+  const tx_ref = req.params.trx_ref;
   const eventId=req.params.eventId;
   const userId=req.params.userId;
 
