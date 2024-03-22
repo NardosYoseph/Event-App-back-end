@@ -38,11 +38,14 @@ async function fetchUserbyID(userID) {
 }
 
 async function findUserEvents(userId){
+  console.log(userId);
   
     const user = await User.findById(userId).populate({
       path: 'events',
       match: { _id: { $in: user.events } } // Filter by IDs in user.events
     });
+  console.log(user);
+    
     return user;
     }
   
