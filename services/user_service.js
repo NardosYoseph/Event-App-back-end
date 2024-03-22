@@ -1,6 +1,7 @@
 const User = require('../models/user'); // Import the User model
 const bcryptjs = require('bcryptjs');
 const dbConnection = require('../config/database'); 
+const user = mongoose.model('User');
 
 async function registerUser(username,email, password) {
  
@@ -40,13 +41,13 @@ async function fetchUserbyID(userID) {
 async function findUserEvents(userId){
   console.log(userId);
   
-    const user = await User.findById(userId).populate({
+    const events = await User.findById(userId).populate({
       path: 'events',
       match: { _id: { $in: user.events } } // Filter by IDs in user.events
     });
-  console.log(user);
+  console.log(events);
     
-    return user;
+    return events;
     }
   
 
