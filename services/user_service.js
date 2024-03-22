@@ -44,7 +44,7 @@ async function findUserEvents(userId){
   
     const events = await User.findById({_id:userId}).populate({
       path: 'events',
-      match: { _id: { $in: user.events } } // Filter by IDs in user.events
+      match: { _id: { $in: User.events } } // Filter by IDs in user.events
     });
   console.log(events);
     
