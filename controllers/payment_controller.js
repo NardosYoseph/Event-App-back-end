@@ -32,6 +32,8 @@ async function paymentStatus(req, res) {
 
 
 async function verifyPayment(tx_ref) {
+  console.error('passed',tx_ref);
+
   try {
     const url = `https://api.chapa.co/v1/transaction/verify/${tx_ref}`;
     const response = await axios.get(url,{headers: {
