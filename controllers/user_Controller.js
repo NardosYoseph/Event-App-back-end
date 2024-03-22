@@ -57,7 +57,8 @@ async function fetchUserbyID(req, res) {
 
   async function findUserEvents(req, res) {
     try {
-        const events = await userService.findUserEvents(req.params.userId);
+        const userId = req.params.userId;
+        const events = await userService.findUserEvents(userId);
     console.log('events fetched successfully');
         res.status(200).json({ message: 'events fetched successfully',events: events });
     } catch (err) {
