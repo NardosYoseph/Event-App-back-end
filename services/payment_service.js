@@ -3,7 +3,7 @@ const Payment = require('../models/payment');
 
 async function storePayment(paymentData){
 dbConnection;
-const payment=Payment(paymentData);
+const payment=new Payment(paymentData);
 await Payment.save;
 return payment;
 
