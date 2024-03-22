@@ -21,7 +21,7 @@ async function retrieveUserEventId(txnRef){
     
 
 
-exports.module={
+module.exports={
     storePayment,
  retrieveUserEventId,
 }

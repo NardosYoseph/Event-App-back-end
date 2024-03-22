@@ -1,5 +1,5 @@
 
-const upload = require("../middleware/multer");
+const upload = require('../middleware/multer');
 const eventService = require('../services/event_service');
 const User = require('../models/user');
 
