@@ -1,4 +1,5 @@
 const User = require('../models/user'); // Import the User model
+const Event = require('../models/event'); // Import the User model
 const bcryptjs = require('bcryptjs');
 const dbConnection = require('../config/database'); 
 const mongoose = require('mongoose');
