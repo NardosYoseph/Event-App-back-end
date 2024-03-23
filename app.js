@@ -3,9 +3,10 @@ const app = express();
 const userRoutes = require('./routes/user_route');
 const eventRoutes = require('./routes/event_route');
 const paymentRoutes = require('./routes/payment_route');
+const cors = require('cors');
 
 app.use(express.json()); // Parse JSON request bodies
-
+app.use(cors({ origin: 'http://172.16.35.58:3000' }));
 app.use('/public', express.static(__dirname + "/public"))
 // Mount user routes
 app.use('/api/user', userRoutes);
