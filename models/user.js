@@ -6,6 +6,8 @@ const userSchema = new mongoose.Schema({
   profilePicture:{type: String ,unique:false, required: false},
   email: { type: String, unique: true, required: true },
   password: { type: String, required: true },
+  role: { type: String, required: false },
+
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Event' }] 
 });
 
