@@ -26,7 +26,11 @@ async function fetchEvent(req, res) {
           rate: event._doc.rate,
           people: event._doc.people,
           image:  event._doc.image,
-          price: event._doc.price
+          price: event._doc.price,
+          availableTickets:event._doc.availableTickets,
+          eventorganizer:event._doc.eventorganizer,
+          
+
         }; 
       }));
     console.error('Event fetched successfully');

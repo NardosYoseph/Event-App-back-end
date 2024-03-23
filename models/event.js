@@ -9,6 +9,7 @@ const eventSchema = new mongoose.Schema({
     price: {type: Number ,unique:false, required: true},
     availableTickets: {type: Number ,unique:false, required: true},
     image: {type: String ,unique:false, required: true},
+    eventorganizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
   
 

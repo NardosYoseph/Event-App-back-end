@@ -31,7 +31,11 @@ async function loginUser(email, password) {
   }
   return user;
 }
-
+async function fetchUser() {
+  dbConnection; 
+  const users = await User.find();
+  return users;
+}
 async function fetchUserbyID(userID) {
   dbConnection
   console.log(userID);
@@ -60,6 +64,7 @@ async function findUserEvents(userId){
 module.exports = {
   registerUser,
   loginUser,
+  fetchUser,
   fetchUserbyID,
   findUserEvents
 };
