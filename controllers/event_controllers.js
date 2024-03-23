@@ -29,7 +29,7 @@ async function fetchEvent(req, res) {
           price: event._doc.price,
           availableTickets:event._doc.availableTickets,
           eventorganizer:event._doc.eventorganizer,
-          
+
 
         }; 
       }));
@@ -66,7 +66,7 @@ async function buyTicket(eventId, userId) {
 
 async function searchEvent(req, res) {
   const searchTerm = req.params.q; // Access search term from query parameter
-console.log(searchTerm)
+console.log(req.params)
   try {
     const events= await eventService.searchEvent(searchTerm);
 
