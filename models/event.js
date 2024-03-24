@@ -5,12 +5,13 @@ const eventSchema = new mongoose.Schema({
     description: {type: String ,unique:false, required: true},
     date: {type: Date ,unique:false, required: true},
     time:{type: String ,unique:false, required: true},
-    rate: {type: Number ,unique:false, required: true},
+    // rate: {type: Number ,unique:false, required: true},
     price: {type: Number ,unique:false, required: true},
     availableTickets: {type: Number ,unique:false, required: true},
     image: {type: String ,unique:false, required: true},
     eventorganizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
-    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}]
+    attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
+    status: {type: String ,unique:false, required: false},
   
 
   });
