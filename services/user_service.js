@@ -5,7 +5,7 @@ const dbConnection = require('../config/database');
 const mongoose = require('mongoose');
 const user = mongoose.model('User');
 
-async function registerUser(username,email, password) {
+async function registerUser(username,email, password,role) {
  
   dbConnection
   const existingUser = await User.findOne({ email });
@@ -14,7 +14,7 @@ async function registerUser(username,email, password) {
   }
 
   const hashedPassword = await bcryptjs.hash(password, 10);
-  const user = new User({username, email, password: hashedPassword });
+  const user = new User({username, email, password: hashedPassword ,role});
   await user.save();
   return user;
 }
