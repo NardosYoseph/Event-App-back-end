@@ -29,7 +29,7 @@ async function fetchEvent(req, res) {
           price: event._doc.price,
           availableTickets:event._doc.availableTickets,
           eventorganizer:event._doc.eventorganizer,
-
+         atendee:event._doc.atendee
 
         }; 
       }));
