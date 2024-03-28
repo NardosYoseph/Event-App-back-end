@@ -67,6 +67,28 @@ async function fetchUser(req, res) {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+  async function fetchEventOrganizers(req, res) {
+    try {
+        const userList = await userService.fetchEventOrganizer();
+        const formattedUserList = await Promise.all(userList.map(async user => {
+          return {
+            _id: user._doc._id,
+            username:user._doc.username,
+            profilePicture: user._doc.profilePicture,
+            email: user._doc.email,
+            password: user._doc.password,
+            role: user._doc.role,
+            events: user._doc.events,
+          }; 
+        }));
+      console.error('Users fetched successfully');
+        
+        res.status(200).json({ message: 'Users fetched successfully',userList: formattedUserList });
+    } catch (err) {
+      console.error('Error fetching users:', err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  }
 
 async function fetchUserbyID(req, res) {
     try {
