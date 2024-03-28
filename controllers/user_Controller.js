@@ -34,7 +34,7 @@ async function login(req, res) {
  async function refreshToken(req, res) {
     
     try {
-    const userId = req.user.id; // Access user ID from verified refresh token
+    const userId = req.user.id; 
     const newAccessToken = token.generateToken(userId); 
     console.log('refresh token successful');
     res.json({ accessToken: newAccessToken });
