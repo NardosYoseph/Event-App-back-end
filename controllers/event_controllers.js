@@ -6,6 +6,7 @@ const User = require('../models/user');
 async function createEvent(req, res) {
   try {
       const eventData =req.body;
+      console.log(eventData)
       const newEvent = await eventService.createEvent(eventData);
       res.status(200).json({ message: 'Event created successfully' , newEvent});
   } catch (err) {
