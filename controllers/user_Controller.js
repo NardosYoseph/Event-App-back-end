@@ -59,7 +59,7 @@ async function fetchUser(req, res) {
             events: user._doc.events,
           }; 
         }));
-      console.error('Users fetched successfully');
+      console.log('Users fetched successfully');
         
         res.status(200).json({ message: 'Users fetched successfully',userList: formattedUserList });
     } catch (err) {
@@ -69,8 +69,8 @@ async function fetchUser(req, res) {
   }
   async function fetchEventOrganizers(req, res) {
     try {
-        const userList = await userService.fetchEventOrganizer();
-        const formattedUserList = await Promise.all(userList.map(async user => {
+        const EventOrganizersList = await userService.fetchEventOrganizers();
+        const formattedUserList = await Promise.all(EventOrganizersList.map(async user => {
           return {
             _id: user._doc._id,
             username:user._doc.username,
@@ -81,11 +81,11 @@ async function fetchUser(req, res) {
             events: user._doc.events,
           }; 
         }));
-      console.error('Users fetched successfully');
+      console.log('EventOrganizers fetched successfully');
         
-        res.status(200).json({ message: 'Users fetched successfully',userList: formattedUserList });
+        res.status(200).json({ message: 'EventOrganizers fetched successfully',EventOrganizersList: formattedUserList });
     } catch (err) {
-      console.error('Error fetching users:', err);
+      console.error('Error fetching EventOrganizers:', err);
       res.status(500).json({ error: 'Internal server error' });
     }
   }
@@ -119,5 +119,6 @@ module.exports = {
     refreshToken,
     fetchUser,
     fetchUserbyID,
-    findUserEvents
+    findUserEvents,
+    fetchEventOrganizers
 };

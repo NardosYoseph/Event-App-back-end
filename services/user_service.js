@@ -36,7 +36,7 @@ async function fetchUser() {
   const users = await User.find();
   return users;
 }
-async function fetchEventOrganizer() {
+async function fetchEventOrganizers() {
   dbConnection; 
   const EventOrganizers = await User.find({role:"EVENT_ORGANIZER"});
   return EventOrganizers;
@@ -72,5 +72,5 @@ module.exports = {
   fetchUser,
   fetchUserbyID,
   findUserEvents,
-  fetchEventOrganizer
+  fetchEventOrganizers
 };
