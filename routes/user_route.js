@@ -3,7 +3,7 @@ const router = express.Router();
 const userController = require('../controllers/user_Controller');
 const passport= require("../middleware/passport")
 
-router.post('/hello', userController.hello);
+router.get('/hello', userController.hello);
 
 router.post('/register', userController.register);
 router.post('/login', userController.login);

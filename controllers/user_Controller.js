@@ -6,9 +6,7 @@ const dbConnection = require('../config/database')
 
 
 
- function hello(req, res) {
-res.json({ message: 'hello!' });
-}; 
+ 
 async function register(req, res) {
  
     try {
@@ -118,6 +116,10 @@ async function fetchUserbyID(req, res) {
       res.status(500).json({ error: 'Internal server error' });
     }
   }
+  function hello(req, res) {
+    console.log(req);
+    res.json({ message: 'hello!' });
+    }; 
 
 module.exports = {
     register,
