@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const token= require('../config/generate_token');
 const dbConnection = require('../config/database')
 
+
+
+
+ function hello(req, res) {
+res.json({ message: 'hello!' });
+}; 
 async function register(req, res) {
  
     try {
@@ -120,5 +126,6 @@ module.exports = {
     fetchUser,
     fetchUserbyID,
     findUserEvents,
-    fetchEventOrganizers
+    fetchEventOrganizers,
+    hello
 };
