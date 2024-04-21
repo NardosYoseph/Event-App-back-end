@@ -19,11 +19,13 @@ async function fetchEventbyID(eventID) {
   const event = await Event.findOne({_id:eventID});
   return event;
 }
-async function buyTicket(eventId, userId) {
+async function buyTicket(eventId, userId,txn_ref) {
   dbConnection; 
   const eventPurchased= await Event.findOneAndUpdate(
     { _id: eventId },
-    { $inc: { availableTickets: -1 }, $push: { attendees: userId } },
+    { $inc: { availableTickets: -1 }, $push: { attendees: userId }},
+    { $set: { paymentID: txn_ref }},
+    
     { new: true } 
   );
   if (User.schema.paths.events) { 
