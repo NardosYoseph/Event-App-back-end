@@ -32,7 +32,6 @@ async function fetchEvent(req, res) {
           eventorganizer:event._doc.eventorganizer,
          attendees:event._doc.attendees,
          status:event._doc.status,
-         paymentID: event._doc.paymentID
 
         }; 
       }));

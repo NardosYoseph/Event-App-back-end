@@ -13,8 +13,8 @@ async function createQr(req,res){
 }
 async function fetchQr(req, res) {
     try {
-        console.log(req.query.qrId);
-        const qr = await qrService.fetchEventQr(req.query.qrId);
+        console.log(req.params.qrId);
+        const qr = await qrService.fetchEventQr(req.params.qrId);
         
     console.log('qr fetched successfully');
         res.status(200).json({ message: 'qr fetched successfully', qr: qr});
