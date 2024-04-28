@@ -1,7 +1,5 @@
 const userService = require('../services/user_service');
-const mongoose = require('mongoose');
 const token= require('../config/generate_token');
-const dbConnection = require('../config/database')
 
 
 

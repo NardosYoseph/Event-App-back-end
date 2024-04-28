@@ -3,6 +3,7 @@ const app = express();
 const userRoutes = require('./routes/user_route');
 const eventRoutes = require('./routes/event_route');
 const paymentRoutes = require('./routes/payment_route');
+const qrRoutes = require('./routes/qr_route');
 const cors = require('cors');
 
 app.use(express.json()); // Parse JSON request bodies
@@ -13,6 +14,7 @@ app.use('/public', express.static(__dirname + "/public"))
 app.use('/api/user', userRoutes);
 app.use('/api/event', eventRoutes);
 app.use('/api/payment', paymentRoutes);
+app.use('/api/qr', qrRoutes);
 
 const port = process.env.PORT || 3001;
 app.listen(port, () => {

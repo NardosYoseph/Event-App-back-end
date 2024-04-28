@@ -12,7 +12,7 @@ const eventSchema = new mongoose.Schema({
     eventOrganizer: { type: mongoose.Schema.Types.ObjectId, ref: 'User'},
     attendees: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User'}],
     status: {type: String ,unique:false, required: false},
-    paymentID:{type: String,unique:true,required:false}
+    paymentID:{type: String,unique:true,required:false},
 
   });
   const Event = mongoose.model('Event', eventSchema);
